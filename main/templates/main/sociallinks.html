@@ -51,7 +51,7 @@
 			<div>
 				<h2>{{ group.title }}</h2>
 
-				{% for link in group.socialmedialink_set.all %}
+				{% for link in group.socialmedialink_set.all|dictsort:"name" %}
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="{{ link.icon }}"/></svg>
 				<a href="{{ link.link }}">{{ link.name }}</a><br>
 				{% endfor %}
