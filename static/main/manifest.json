@@ -1,0 +1,10 @@
+{
+    "short_name": "Anton.exe",
+    "name": "Anton's Website",
+    "start_url": "/",
+    "background_color": "#008000",
+    "display": "browser",
+    "scope": "/",
+    "theme_color": "#008000",
+    "description": "Anton Śnieć's personal website"
+}
