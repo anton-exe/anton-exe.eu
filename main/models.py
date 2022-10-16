@@ -29,3 +29,5 @@ class SocialMediaLink(models.Model):
     link = models.CharField(max_length=200)
 
     group = models.ForeignKey(SocialMediaGroup, on_delete=models.CASCADE)
+    def __str__(self):
+        return self.name
