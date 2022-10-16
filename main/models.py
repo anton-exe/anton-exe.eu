@@ -16,3 +16,16 @@ class TextPageSection(models.Model):
 
     def __str__(self):
         return self.heading
+
+class SocialMediaGroup(models.Model):
+    title = models.CharField(max_length=50)
+
+    def __str__(self):
+        return self.title
+
+class SocialMediaLink(models.Model):
+    icon = models.TextField()
+    name = models.CharField(max_length=50)
+    link = models.CharField(max_length=200)
+
+    group = models.ForeignKey(SocialMediaGroup, on_delete=models.CASCADE)

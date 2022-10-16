@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
-from .models import TextPage, TextPageSection
+from .models import TextPage, SocialMediaGroup
 
 def render_template(request, template_name):
     return render(request, template_name)
@@ -24,4 +24,16 @@ class TextPageView(generic.TemplateView):
         page = get_object_or_404(TextPage, url_path=self.kwargs.get('pk'))
         context["sections"] = page.textpagesection_set.all()
         context["page"] = page
+        return context
+
+class SocialLinks(generic.TemplateView):
+    template_name: str = "main/sociallinks.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        groups = SocialMediaGroup.objects.all()
+
+        context["groups"] = groups
+
         return context
