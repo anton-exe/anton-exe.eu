@@ -32,7 +32,6 @@ ALLOWED_HOSTS = ["*"]
 # Application definition
 
 INSTALLED_APPS = [
-    'grabq.apps.GrabqConfig',
     'main.apps.MainConfig',
     'django.contrib.admin',
     'django.contrib.auth',
