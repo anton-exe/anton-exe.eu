@@ -1,15 +1,18 @@
+<!DOCTYPE html>
 <div class=navbar>
-	<a class="active" href="/" target="_top">Home</a>
-	<a href="{% url 'main:sociallinks' %}" target="_top">Social Links</a>
-	<!-- <div class="dropdown">
+	{% for button in buttons %}
+	<a href="{{button.link}}" target="_top" tabindex="0">{{button.text}}</a>
+	{% endfor %}
+	{% for dropdown in dropdowns %}
+	<div class="dropdown" tabindex="0">
 		<button class="dropbtn">
-			Category
+			{{dropdown.text}} ▼
 		</button>
+		{% for item in dropdown.navbardropdownitem_set.all %}
 		<div class="dropdown-content">
-			<a href="/path/to/file.html">Page</a>
+			<a href="{{item.link}}" target="_top" tabindex="0">{{item.text}}</a>
 		</div>
-		<div class="dropdown-content">
-			<a href="/path/to/another.html">Another Page</a>
-		</div>
-	</div> -->
+		{% endfor %}
+	</div>
+	{% endfor %}
 </div>

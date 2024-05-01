@@ -5,23 +5,13 @@
 		<title>Social Links</title>
 		<link rel="stylesheet" href="{% static 'main/mainstyle.css' %}">
 		<link rel="manifest" href="{% static 'main/manifest.json' %}">
-			<!-- Icon -->
-			<link rel="apple-touch-icon" sizes="180x180" href="{% static 'main/favicon/apple-touch-icon.png' %}">
-			<link rel="icon" type="image/png" sizes="32x32" href="{% static 'main/favicon/favicon-32x32.png' %}">
-			<link rel="icon" type="image/png" sizes="16x16" href="{% static 'main/favicon/favicon-16x16.png' %}">
-			<link rel="manifest" href="{% static 'main/favicon/site.webmanifest' %}">
-			<link rel="shortcut icon" href="{% static 'main/favicon/favicon.ico' %}">
-			<meta name="msapplication-TileColor" content="#00a300">
-			<meta name="msapplication-TileImage" content="{% static 'main/favicon/mstile-144x144.png' %}">
-			<meta name="msapplication-config" content="{% static 'main/favicon/browserconfig.xml' %}">
-			<meta name="theme-color" content="#228B22">
 			<!-- Meta Info -->
 			<meta charset="UTF-8">
 			<meta name="viewport" content="width=device-width, initial-scale=1.0">
-			<meta name="description" content="Anton Śnieć's personal website">
-			<meta name="author" content="Anton Sniec">
-			<meta name="keywords" content="Anton.exe, Anton Sniec, Anton Śnieć, Anton, Sniec, Śnieć">
-			<meta name="theme-color" content="#008000">
+			<meta name="description" content="Anton's personal website">
+			<meta name="author" content="Anton">
+			<meta name="keywords" content="Anton.exe, Anton">
+			<meta name="theme-color" content="#006400">
 			<!-- Discord embed -->
 			<meta content="{% static 'main/mii.png' %}" property="og:image" />
 		<style>
@@ -37,15 +27,19 @@
 			section > div {
 				margin: 10px;
 				font-size: 24px;
+				margin-right: 30px;
 			}
+			section > div > a {
+				color: skyblue;
+            }
 		</style>
 	</head>
 
     <body>
 		<header>
-			<h1 style="text-align: center; color: black;">Social Links</h1>
+			<h1>social links</h1>
 		</header>
-		{% include './navbar.html' %}
+		{% include './navbar.html' with buttons=navbar_buttons dropdowns=navbar_dropdowns %}
 		<section>
 			{% for group in groups %}
 			<div>
@@ -53,10 +47,11 @@
 
 				{% for link in group.socialmedialink_set.all|dictsort:"name" %}
 				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="{{ link.icon }}"/></svg>
-				<a href="{{ link.link }}">{{ link.name }}</a><br>
+				<a rel="me" href="{{ link.link }}">{{ link.name }}</a><br>
 				{% endfor %}
 			</div>
 			{% endfor %}
 		</section>
+		{% include './footer.html' %}
 	</body>
 </html>

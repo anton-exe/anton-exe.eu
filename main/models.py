@@ -5,6 +5,7 @@ from django.db import models
 class TextPage(models.Model):
     url_path = models.CharField(max_length=200, unique=True, primary_key=True)
     title = models.CharField(max_length=100)
+    javascript = models.TextField(blank=True)
 
     def __str__(self):
         return self.title + " (" + self.url_path + ")"
@@ -31,3 +32,26 @@ class SocialMediaLink(models.Model):
     group = models.ForeignKey(SocialMediaGroup, on_delete=models.CASCADE)
     def __str__(self):
         return self.name
+
+class NavbarButton(models.Model):
+    text = models.CharField(max_length=50)
+    link = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.text
+
+class NavbarDropdown(models.Model):
+    text = models.CharField(max_length=50)
+    
+    def __str__(self):
+        return self.text
+
+class NavbarDropdownItem(models.Model):
+    text = models.CharField(max_length=50)
+    link = models.CharField(max_length=200)
+    
+    dropdown = models.ForeignKey(NavbarDropdown, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.text
+

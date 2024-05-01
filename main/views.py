@@ -1,7 +1,7 @@
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
-from .models import TextPage, SocialMediaGroup
+from .models import TextPage, SocialMediaGroup, NavbarButton, NavbarDropdown
 
 def render_template(request, template_name):
     return render(request, template_name)
@@ -14,6 +14,10 @@ class IndexView(generic.TemplateView):
         page = TextPage.objects.get(url_path="index")
         context["sections"] = page.textpagesection_set.all()
         context["page"] = page
+
+        context["navbar_buttons"] = NavbarButton.objects.all()
+        context["navbar_dropdowns"] = NavbarDropdown.objects.all()
+
         return context
 
 class TextPageView(generic.TemplateView):
@@ -24,6 +28,10 @@ class TextPageView(generic.TemplateView):
         page = get_object_or_404(TextPage, url_path=self.kwargs.get('pk'))
         context["sections"] = page.textpagesection_set.all()
         context["page"] = page
+
+        context["navbar_buttons"] = NavbarButton.objects.all()
+        context["navbar_dropdowns"] = NavbarDropdown.objects.all()
+
         return context
 
 class SocialLinks(generic.TemplateView):
@@ -35,5 +43,8 @@ class SocialLinks(generic.TemplateView):
         groups = SocialMediaGroup.objects.all()
 
         context["groups"] = groups
+
+        context["navbar_buttons"] = NavbarButton.objects.all()
+        context["navbar_dropdowns"] = NavbarDropdown.objects.all()
 
         return context
