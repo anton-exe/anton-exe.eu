@@ -1,3 +1,6 @@
+html, body{
+    min-height: 100%;
+}
 body{
     margin: 0;
     padding: 0;
@@ -5,11 +8,12 @@ body{
     font-size: 100%;
     font: inherit;
     vertical-align: baseline;
-    background-color: green;
+    background: linear-gradient(180deg, rgba(0,128,0,1) 0%, rgba(0,64,0,1) 100%);
+    background-repeat: no-repeat;
     color: white;
 }
 header {
-    background: lightgreen;
+    background: linear-gradient(90deg, rgba(144,238,144,1) 0%, rgba(0,128,0,1) 100%);
     padding: 15px;
     font-family: arial;
 }
@@ -22,7 +26,7 @@ a:hover {
 }
 .navbar {
     font-family: helvetica;
-    background-color: darkgreen;
+    background: linear-gradient(90deg, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 60%, rgba(0,100,0,1) 100%);
     overflow: hidden;
 }
 .navbar a {
@@ -67,16 +71,6 @@ a:hover {
 }
 .dropdown:hover .dropdown-content {
     display: block;
-}
-.navbar a.active {
-    font-size: 17px;
-    border: none;
-    outline: none;
-    background-color: black;
-    color: white;
-    padding: 14px 16px;
-    font-family: inherit;
-    margin: 0;
 }
 section {
     margin: 1%;

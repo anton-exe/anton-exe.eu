@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import TextPage, TextPageSection, SocialMediaLink, SocialMediaGroup
+from .models import TextPage, TextPageSection, SocialMediaLink, SocialMediaGroup, NavbarButton, NavbarDropdown, NavbarDropdownItem
 
 # Register your models here.
 
@@ -9,7 +9,6 @@ class TextPageSectionInline(admin.StackedInline):
     extra = 0
 
 class TextPageAdmin(admin.ModelAdmin):
-    fields = ['url_path', 'title']
     inlines = [TextPageSectionInline]
 
 class SocialMediaLinkInline(admin.StackedInline):
@@ -19,5 +18,17 @@ class SocialMediaLinkInline(admin.StackedInline):
 class SocialMediaGroupAdmin(admin.ModelAdmin):
     inlines = [SocialMediaLinkInline]
 
+class NavbarDropdownItemInline(admin.StackedInline):
+    model = NavbarDropdownItem
+    extra = 2
+
+class NavbarDropdownAdmin(admin.ModelAdmin):
+    inlines = [NavbarDropdownItemInline]
+
+class NavbarButtonAdmin(admin.ModelAdmin):
+    pass
+
 admin.site.register(TextPage, TextPageAdmin)
 admin.site.register(SocialMediaGroup, SocialMediaGroupAdmin)
+admin.site.register(NavbarDropdown, NavbarDropdownAdmin)
+admin.site.register(NavbarButton, NavbarButtonAdmin)
