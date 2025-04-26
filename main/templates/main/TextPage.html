@@ -12,8 +12,11 @@
 			<meta name="author" content="Anton">
 			<meta name="keywords" content="Anton.exe, Anton">
 			<meta name="theme-color" content="#006400">
-			<!-- Discord embed -->
+			<!-- OpenGraph -->
+			<meta content="{{ page.title }}" property="og:title" />
+			<meta content="website" property="og:type" />
 			<meta content="{% static 'main/mii.png' %}" property="og:image" />
+			<meta content="{{ request.build_absolute_uri }}" property="og:url" />
 	</head>
 	
 	<body>
