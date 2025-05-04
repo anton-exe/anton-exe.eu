@@ -3,9 +3,6 @@ from django.views import generic
 
 from .models import TextPage, SocialMediaGroup, NavbarButton, NavbarDropdown
 
-def render_template(request, template_name):
-    return render(request, template_name)
-
 class IndexView(generic.TemplateView):
     template_name: str = "main/TextPage.html"
 
