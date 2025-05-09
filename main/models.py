@@ -1,4 +1,6 @@
 from django.db import models
+from django.utils import timezone
+from django.urls import reverse
 
 # Create your models here.
 
@@ -9,6 +11,9 @@ class TextPage(models.Model):
 
     def __str__(self):
         return self.title + " (" + self.url_path + ")"
+    
+    def get_absolute_url(self):
+        return reverse('main:textpage', kwargs={'pk': self.url_path})
 
 class TextPageSection(models.Model):
     page = models.ForeignKey(TextPage, on_delete=models.CASCADE)
@@ -21,6 +26,24 @@ class TextPageSection(models.Model):
 
     class Meta:
         ordering = ["index"] 
+
+class BlogPost(models.Model):
+    url_path = models.CharField(max_length=200, unique=True, primary_key=True, default=timezone.now().strftime("%Y-%m-%d"))
+
+    title = models.CharField(max_length=200)
+    creation_date = models.DateTimeField(default=timezone.now)
+    author = models.CharField(max_length=100)
+
+    content = models.TextField()
+
+    def __str__(self):
+        return self.title + " (" + self.url_path + ")"
+
+    def get_absolute_url(self):
+        return reverse('main:blogpost', kwargs={'pk': self.url_path})
+    
+    class Meta:
+        ordering = ["creation_date"]
 
 class SocialMediaGroup(models.Model):
     title = models.CharField(max_length=50)

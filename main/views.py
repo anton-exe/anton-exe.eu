@@ -1,10 +1,21 @@
 from django.shortcuts import get_object_or_404, render
 from django.views import generic
 
-from .models import TextPage, SocialMediaGroup, NavbarButton, NavbarDropdown
+from .models import TextPage, BlogPost, SocialMediaGroup, NavbarButton, NavbarDropdown
 
-def render_template(request, template_name):
-    return render(request, template_name)
+class Error404(generic.TemplateView):
+    template_name: str = "main/TextPage.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        page = TextPage.objects.get(url_path="404")
+        context["sections"] = page.textpagesection_set.all()
+        context["page"] = page
+
+        context["navbar_buttons"] = NavbarButton.objects.all()
+        context["navbar_dropdowns"] = NavbarDropdown.objects.all()
+
+        return context
 
 class IndexView(generic.TemplateView):
     template_name: str = "main/TextPage.html"
@@ -28,6 +39,33 @@ class TextPageView(generic.TemplateView):
         page = get_object_or_404(TextPage, url_path=self.kwargs.get('pk'))
         context["sections"] = page.textpagesection_set.all()
         context["page"] = page
+
+        context["navbar_buttons"] = NavbarButton.objects.all()
+        context["navbar_dropdowns"] = NavbarDropdown.objects.all()
+
+        return context
+
+class BlogPostView(generic.TemplateView):
+    template_name: str = "main/blogpost.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        post = get_object_or_404(BlogPost, url_path=self.kwargs.get('pk'))
+        context["post"] = post
+
+        context["navbar_buttons"] = NavbarButton.objects.all()
+        context["navbar_dropdowns"] = NavbarDropdown.objects.all()
+
+        return context
+    
+class BlogListView(generic.TemplateView):
+    template_name: str = "main/bloglist.html"
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        posts = BlogPost.objects.order_by("-creation_date")
+        context["posts"] = posts
 
         context["navbar_buttons"] = NavbarButton.objects.all()
         context["navbar_dropdowns"] = NavbarDropdown.objects.all()

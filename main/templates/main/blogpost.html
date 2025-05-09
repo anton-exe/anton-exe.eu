@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+	<head>
+		{% load static %}
+		<title>{{ post.title }}</title>
+		<link rel="stylesheet" href="{% static 'main/mainstyle.css' %}">
+		<link rel="manifest" href="{% static 'main/manifest.json' %}">
+			<!-- Meta Info -->
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="description" content="Anton's website">
+			<meta name="author" content="Anton">
+			<meta name="keywords" content="Anton.exe, Anton">
+			<meta name="theme-color" content="#006400">
+			<!-- OpenGraph -->
+			<meta content="{{ post.title }}" property="og:title" />
+			<meta content="article" property="og:type" />
+			<meta content="{% static 'main/mii.png' %}" property="og:image" />
+			<meta content="{{ request.build_absolute_uri }}" property="og:url" />
+			<meta content="{{ post.creation_date|date:'c' }}" property="article:published_time"/>
+			<meta content="{{ post.author }}" property="article:author"/>
+	</head>
+	
+	<body>
+		<header>
+			<h1>blog - {{ post.title }}</h1>
+			<h4>Posted on: {{ post.creation_date|date:"j M Y" }}</h4>
+		</header>
+		{% include './navbar.html' with buttons=navbar_buttons dropdowns=navbar_dropdowns %}
+		<section>
+			{{ post.content|safe|linebreaks }}
+		</section>
+		{% include './footer.html' %}
+	</body>
+</html>

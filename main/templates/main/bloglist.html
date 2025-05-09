@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en-IE">
+	<head>
+		{% load static %}
+		<title>anton's blog</title>
+		<link rel="stylesheet" href="{% static 'main/mainstyle.css' %}">
+		<link rel="manifest" href="{% static 'main/manifest.json' %}">
+			<!-- Meta Info -->
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<meta name="description" content="Anton's website">
+			<meta name="author" content="Anton">
+			<meta name="keywords" content="Anton.exe, Anton">
+			<meta name="theme-color" content="#006400">
+			<!-- OpenGraph -->
+			<meta content="anton's blog" property="og:title" />
+			<meta content="website" property="og:type" />
+			<meta content="{% static 'main/mii.png' %}" property="og:image" />
+			<meta content="{{ request.build_absolute_uri }}" property="og:url" />
+	</head>
+	
+	<body>
+		<header>
+			<h1>blog posts</h1>
+		</header>
+		{% include './navbar.html' with buttons=navbar_buttons dropdowns=navbar_dropdowns %}
+        {% for post in posts %}
+            <section>
+                <h2 style="margin-bottom: 0.25em;"><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+                <h4 style="margin: 0;">Posted on: {{ post.creation_date|date:"j M Y" }}</h4>
+                <p style="margin-top: 0.25em;">{{ post.content|striptags|truncatewords:30 }}</p>
+            </section>
+        {% endfor %}
+		{% include './footer.html' %}
+	</body>
+</html>
