@@ -3,19 +3,17 @@ from django.views import generic
 
 from .models import TextPage, BlogPost, SocialMediaGroup, NavbarButton, NavbarDropdown
 
-class Error404(generic.TemplateView):
+def handler404(request, exception):
     template_name: str = "main/TextPage.html"
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        page = TextPage.objects.get(url_path="404")
-        context["sections"] = page.textpagesection_set.all()
-        context["page"] = page
-
-        context["navbar_buttons"] = NavbarButton.objects.all()
-        context["navbar_dropdowns"] = NavbarDropdown.objects.all()
-
-        return context
+    page = TextPage.objects.get(url_path="404")
+    context = {
+        "sections": page.textpagesection_set.all(),
+        "page": page,
+        "navbar_buttons": NavbarButton.objects.all(),
+        "navbar_dropdowns": NavbarDropdown.objects.all(),
+    }
+    return render(request, template_name, context, status=404)
 
 class IndexView(generic.TemplateView):
     template_name: str = "main/TextPage.html"
